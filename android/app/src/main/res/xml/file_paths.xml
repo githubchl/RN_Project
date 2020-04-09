@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <external-path
+        name="camera_photos"
+        path="" /><!--不写代表共享整个sd卡-->
+
+    <!--<external-path-->
+        <!--name="camera_photos"-->
+        <!--path="faces/" />共享sd卡下的faces目录-->
+</resources>
