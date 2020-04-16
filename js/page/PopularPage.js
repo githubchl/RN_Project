@@ -30,14 +30,16 @@ class PopularPage extends Component {
         onLoadLanguage(FLAG_LANGUAGE.flag_key);
 
         this.preKeys = [];
+
+        console.log("PopularPage----constructor");
     }
 
     _getTabs() {
 
-        if (!this.tabNav||!ArrayUtil.isEqual(this.preKeys,this.props.keys)){
+        if (!this.tabNav || !ArrayUtil.isEqual(this.preKeys, this.props.keys)) {
             console.log("_getTabs--popular");
             const tabs = {};
-            const {keys,theme} = this.props;
+            const {keys, theme} = this.props;
 
             this.preKeys = keys;
             keys.forEach((item, index) => {
@@ -59,8 +61,8 @@ class PopularPage extends Component {
     }
 
     render() {
-        console.log("popularRender");
-        const {keys,theme} = this.props;
+        console.log("PopularPage----render");
+        const {keys, theme} = this.props;
         let statusBar = {
             backgroundColor: theme.themeColor,
             barStyle: "light-content",
@@ -70,7 +72,7 @@ class PopularPage extends Component {
             statusBar={statusBar}
             style={{backgroundColor: theme.themeColor}}
         />;
-        const TabNavigator =  keys.length > 0 ?createAppContainer(
+        const TabNavigator = keys.length > 0 ? createAppContainer(
             createMaterialTopTabNavigator(
                 this._getTabs(),
                 {
@@ -84,13 +86,13 @@ class PopularPage extends Component {
                         indicatorStyles: styles.indicatorStyles,
                         labelStyle: styles.labelStyle
                     },
-                    lazy:true,//懒加载
+                    lazy: true,//懒加载
                 }
-            )): null;
+            )) : null;
         return (
             <View style={styles.container}>
                 {navigationBar}
-                {TabNavigator&&<TabNavigator/>}
+                {TabNavigator && <TabNavigator/>}
             </View>
         );
     }
@@ -98,7 +100,7 @@ class PopularPage extends Component {
 
 const mapPopularStateToProps = state => ({
     keys: state.language.keys,
-    theme:state.theme.theme,
+    theme: state.theme.theme,
 });
 
 const mapPopularDispatchToProps = dispatch => ({

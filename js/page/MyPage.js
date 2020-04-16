@@ -10,7 +10,7 @@ import ViewUtil from "../util/ViewUtil";
 import {FLAG_LANGUAGE} from "../expand/dao/LanguageDao";
 import {connect} from "react-redux";
 import actions from "../action";
-import {BottomModal, ModalContent, SlideAnimation} from "react-native-modals";
+import Modal, {BottomModal, ModalContent, SlideAnimation} from "react-native-modals";
 
 const HEAD_IMAGE = "HEAD_IMAGE";
 
@@ -114,6 +114,7 @@ class MyPage extends Component {
             NavigationUtil.goPage(RouteName, params);
         }
     }
+
     //this.closeBottomPopup();
 
     //拍照
@@ -132,9 +133,9 @@ class MyPage extends Component {
     }
 
     //选择照片
-    chooseAlbum(){
+    chooseAlbum() {
         this.closeBottomPopup();
-        NativeModules.AlbumModule.chooseAlbum().then((res)=>{
+        NativeModules.AlbumModule.chooseAlbum().then((res) => {
             console.log("chooseAlbum--res:" + res);
             if (res) {
                 this.setState({
@@ -156,7 +157,7 @@ class MyPage extends Component {
         })
     }
 
-    closeBottomPopup(){
+    closeBottomPopup() {
         this.setState({
             popupVisible: false,
         })
@@ -174,21 +175,25 @@ class MyPage extends Component {
                     slideFrom: 'bottom',
                 })}
             >
-                <ModalContent>
-                    <View>
-                        <TouchableOpacity style={styles.popupItem} onPress={()=>{this.openCamera();}}>
-                            <Text>拍照</Text>
-                        </TouchableOpacity>
-                        <View style={GlobalStyles.line}></View>
-                        <TouchableOpacity style={styles.popupItem} onPress={()=>{this.chooseAlbum()}}>
-                            <Text>选择照片</Text>
-                        </TouchableOpacity>
-                        <View style={GlobalStyles.line}></View>
-                        <TouchableOpacity style={styles.popupItem} onPress={()=>{this.closeBottomPopup()}}>
-                            <Text>取消</Text>
-                        </TouchableOpacity>
-                    </View>
-                </ModalContent>
+                <View>
+                    <TouchableOpacity style={styles.popupItem} onPress={() => {
+                        this.openCamera();
+                    }}>
+                        <Text>拍照</Text>
+                    </TouchableOpacity>
+                    <View style={GlobalStyles.line}></View>
+                    <TouchableOpacity style={styles.popupItem} onPress={() => {
+                        this.chooseAlbum()
+                    }}>
+                        <Text>选择照片</Text>
+                    </TouchableOpacity>
+                    <View style={GlobalStyles.line}></View>
+                    <TouchableOpacity style={styles.popupItem} onPress={() => {
+                        this.closeBottomPopup()
+                    }}>
+                        <Text>取消</Text>
+                    </TouchableOpacity>
+                </View>
             </BottomModal>
         )
     }
@@ -228,7 +233,7 @@ class MyPage extends Component {
                                     size={60}
                                     style={{marginRight: 10, color: theme.themeColor}}
                                 /> : <Image source={{uri: `file:///${this.state.imagePath}`}}
-                                            style={{width: 60, height: 60,borderRadius:5}}/>}
+                                            style={{width: 60, height: 60, borderRadius: 5}} resizeMode={"cover"}/>}
 
                             </TouchableOpacity>
                             <Text style={{marginLeft: 10}}>GitHUb Popular</Text>
@@ -320,6 +325,6 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 60,
         alignItems: "center",
-        justifyContent:"center",
+        justifyContent: "center",
     }
 });
